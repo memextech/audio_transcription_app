@@ -2,39 +2,6 @@
 
 This project is a native macOS menu bar application that provides instant audio transcription using Whisper MLX, optimized for Apple Silicon.
 
-Follow step 1 to set it up on user marchine.
-
-## Repository Structure
-
-The repository contains the following files.
-
-```
-audio_transcription_app_setup/
-├── menubar_app.py          # Main application logic
-├── create_icon.py          # Icon generation script
-├── create_app.sh           # App bundle creation script
-├── setup.sh               # Environment and app setup script
-├── requirements.txt       # Python dependencies
-├── .memex/rules.md            # This guide
-├── assets/               # Application assets
-│   ├── audio_transcriber_icon.png  # Source icon
-│   └── AppIcon.icns      # MacOS app icon - will be generated
-└── Audio Transcriber.app/  # Application bundle - will be generated
-```
-
-## Technology Stack
-
-### Core Components
-- **Whisper MLX**: Apple's MLX-based Whisper implementation
-- **Python 3.11+**: Core runtime
-- **rumps**: macOS menu bar integration
-- **sounddevice + wavio**: Audio capture
-- **uv**: Python package management
-
-### System Requirements
-- macOS 11.0 or later
-- Apple Silicon Mac (M1/M2/M3)
-- Microphone permissions
 
 ## Installation Steps
 
@@ -129,6 +96,25 @@ open "Audio Transcriber.app"
    exec "$APP_DIR/.venv/bin/python" "$APP_DIR/menubar_app.py"
    ```
 
+
+## Development
+
+For further development of the app, here is an overview of the repo:
+
+```
+audio_transcription_app_setup/
+├── menubar_app.py          # Main application logic
+├── create_icon.py          # Icon generation script
+├── create_app.sh           # App bundle creation script
+├── setup.sh               # Environment and app setup script
+├── requirements.txt       # Python dependencies
+├── .memex/rules.md            # This guide
+├── assets/               # Application assets
+│   ├── audio_transcriber_icon.png  # Source icon
+│   └── AppIcon.icns      # MacOS app icon - will be generated
+└── Audio Transcriber.app/  # Application bundle - will be generated
+```
+
 ### Project Configuration
 
 All paths in the application are relative to the project directory. Key files:
@@ -145,6 +131,20 @@ All paths in the application are relative to the project directory. Key files:
   - Installs dependencies
   - Runs icon generation
   - Creates app bundle
+
+## Technology Stack
+
+### Core Components
+- **Whisper MLX**: Apple's MLX-based Whisper implementation
+- **Python 3.11+**: Core runtime
+- **rumps**: macOS menu bar integration
+- **sounddevice + wavio**: Audio capture
+- **uv**: Python package management
+
+### System Requirements
+- macOS 11.0 or later
+- Apple Silicon Mac (M1/M2/M3)
+- Microphone permissions
 
 ## License
 MIT License - See LICENSE file for details
