@@ -36,10 +36,8 @@ Audio Transcriber.app/
 mlx_models/
 # Generated icons
 icons/
-assets/audio_transcriber_icon.png
 
 # Build artifacts
 *.spec
 dist/
 build/
-
