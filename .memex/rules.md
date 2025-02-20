@@ -1,6 +1,8 @@
 # Audio Transcriber - Technical Overview & Setup Guide
 
-A native macOS menu bar application that provides instant audio transcription using Whisper MLX, optimized for Apple Silicon.
+This project is a native macOS menu bar application that provides instant audio transcription using Whisper MLX, optimized for Apple Silicon.
+
+Follow step 1 to set it up on user marchine.
 
 ## Repository Structure
 
@@ -52,7 +54,7 @@ The setup script will:
 open "Audio Transcriber.app"
 ```
 
-## Development Environment
+## Development Environment (Optionally)
 
 ### Manual Setup
 If you prefer to set up manually:
@@ -175,20 +177,6 @@ All paths in the application are relative to the project directory. Key files:
    source "$APP_DIR/.venv/bin/activate"
    exec "$APP_DIR/.venv/bin/python" "$APP_DIR/menubar_app.py"
    ```
-
-## Development
-
-### Making Changes
-1. Activate virtual environment:
-```bash
-source .venv/bin/activate
-```
-
-2. Edit source files
-3. Rebuild app bundle:
-```bash
-./create_app.sh
-```
 
 ## License
 MIT License - See LICENSE file for details
