@@ -57,34 +57,34 @@ open "Audio Transcriber.app"
 ### Manual Setup
 If you prefer to set up manually:
 
-1. Install uv:
+1. Create virtual environment:
 ```bash
-# Via homebrew
-brew install uv
-# Or via curl
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-2. Create virtual environment:
-```bash
+cd /path/to/project
 uv venv
 source .venv/bin/activate
 ```
 
-3. Install dependencies:
+2. Install dependencies:
 ```bash
 uv pip install -r requirements.txt
 ```
 
+3. Download Whisper MLX model:
+```bash
+.venv/bin/python download_model.py
+```
+
 4. Generate icon:
 ```bash
-python3 create_icon.py
+.venv/bin/python create_icon.py
 ```
 
 5. Create app bundle:
 ```bash
 ./create_app.sh
 ```
+
+Note: Always use the virtual environment's Python interpreter (.venv/bin/python) to ensure consistent dependencies.
 
 ### Project Configuration
 

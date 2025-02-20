@@ -44,15 +44,15 @@ cat > "$APP_PATH/Contents/Info.plist" << EOL
 </plist>
 EOL
 
-# Create launcher script
+# Create launcher script with absolute paths
 cat > "$APP_PATH/Contents/MacOS/AudioTranscriber" << EOL
 #!/bin/bash
-SCRIPT_DIR="\$( cd "\$( dirname "\${BASH_SOURCE[0]}" )" && pwd )"
-PROJECT_DIR="\$(dirname "\$(dirname "\$(dirname "\$SCRIPT_DIR")")")"
+PROJECT_DIR="$SCRIPT_DIR"
+VENV_PYTHON="\$PROJECT_DIR/.venv/bin/python"
+APP_SCRIPT="\$PROJECT_DIR/menubar_app.py"
 
-# Activate virtual environment and run app
-source "\$PROJECT_DIR/.venv/bin/activate"
-exec python3 "\$PROJECT_DIR/menubar_app.py"
+# Run app with absolute paths
+exec "\$VENV_PYTHON" "\$APP_SCRIPT"
 EOL
 
 # Make launcher executable

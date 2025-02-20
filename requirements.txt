@@ -1,6 +1,6 @@
 rumps>=0.4.0
 sounddevice>=0.4.6
 wavio>=0.0.7
-lightning-whisper-mlx>=0.1.0
+lightning-whisper-mlx
 pillow>=10.0.0
 pyperclip>=1.8.2
