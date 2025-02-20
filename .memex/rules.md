@@ -133,15 +133,48 @@ All paths in the application are relative to the project directory. Key files:
    - Check uv installation: `uv --version`
    - Ensure all paths in setup.sh are accessible
 
-2. **App Won't Launch**
+2. **App Won't Launch or Menu Bar Icon Missing**
    - Check virtual environment: `.venv/bin/python --version`
    - Verify app bundle structure
-   - Check Console.app for logs
+   - Check process is running: `ps aux | grep menubar_app.py`
+   - Check system logs: Open Console.app and filter for "AudioTranscriber"
+   - Check menu bar settings in System Preferences > Control Center
+   - If app runs from terminal but not from click:
+     ```bash
+     # Run these commands to rebuild with proper permissions
+     rm -rf "Audio Transcriber.app"
+     ./create_app.sh
+     ```
+   - Key requirements for proper app bundle:
+     - Correct Info.plist with LSUIElement set to true
+     - Properly activated virtual environment in launcher script
+     - Correct working directory set in launcher script
+     - Proper code signing (even if self-signed)
 
 3. **Recording Issues**
    - Grant microphone permissions
    - Check audio input device
    - Verify sounddevice installation
+
+4. **Launcher Script Issues**
+   - The launcher script must:
+     - Set proper PATH including Homebrew paths
+     - Activate virtual environment using source
+     - Change to correct working directory
+     - Use absolute paths for Python and app script
+     - Include logging for troubleshooting
+   Example launcher script structure:
+   ```bash
+   #!/bin/bash
+   function log_msg() {
+       /usr/bin/logger -t "AudioTranscriber" "$1"
+   }
+   export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:$PATH"
+   export APP_DIR="/path/to/app"
+   cd "$APP_DIR"
+   source "$APP_DIR/.venv/bin/activate"
+   exec "$APP_DIR/.venv/bin/python" "$APP_DIR/menubar_app.py"
+   ```
 
 ## Development
 
