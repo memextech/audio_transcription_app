@@ -11,7 +11,7 @@ audio_transcription_app_setup/
 ├── create_app.sh           # App bundle creation script
 ├── setup.sh               # Environment and app setup script
 ├── requirements.txt       # Python dependencies
-├── running.md            # This guide
+├── .memex/rules.md            # This guide
 ├── assets/               # Application assets
 │   ├── audio_transcriber_icon.png  # Source icon
 │   └── AppIcon.icns      # Generated macOS app icon
@@ -34,13 +34,7 @@ audio_transcription_app_setup/
 
 ## Installation Steps
 
-### 1. Clone Repository
-```bash
-git clone https://github.com/yourusername/audio_transcription_app_setup.git
-cd audio_transcription_app_setup
-```
-
-### 2. Run Setup Script
+### 1. Run Setup Script
 ```bash
 chmod +x setup.sh
 ./setup.sh
@@ -99,11 +93,11 @@ All paths in the application are relative to the project directory. Key files:
 - `create_icon.py`: Handles icon generation
   - Input: assets/audio_transcriber_icon.png
   - Output: assets/AppIcon.icns
-  
+
 - `create_app.sh`: Creates app bundle
   - Uses project directory for paths
   - Generates launcher script with correct virtual environment path
-  
+
 - `setup.sh`: Manages environment setup
   - Installs dependencies
   - Runs icon generation
@@ -162,29 +156,6 @@ source .venv/bin/activate
 ```bash
 ./create_app.sh
 ```
-
-### Adding Dependencies
-1. Add to requirements.txt
-2. Install in virtual environment:
-```bash
-uv pip install -r requirements.txt
-```
-
-## Contributing
-
-### Setup Development Environment
-1. Fork repository
-2. Clone locally
-3. Run setup.sh
-4. Create feature branch
-5. Make changes
-6. Submit pull request
-
-### Guidelines
-- Follow PEP 8
-- Add tests for new features
-- Update documentation
-- Keep commits atomic
 
 ## License
 MIT License - See LICENSE file for details
