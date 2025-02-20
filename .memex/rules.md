@@ -6,6 +6,8 @@ Follow step 1 to set it up on user marchine.
 
 ## Repository Structure
 
+The repository contains the following files.
+
 ```
 audio_transcription_app_setup/
 ├── menubar_app.py          # Main application logic
@@ -16,8 +18,8 @@ audio_transcription_app_setup/
 ├── .memex/rules.md            # This guide
 ├── assets/               # Application assets
 │   ├── audio_transcriber_icon.png  # Source icon
-│   └── AppIcon.icns      # Generated macOS app icon
-└── Audio Transcriber.app/  # Generated application bundle
+│   └── AppIcon.icns      # MacOS app icon - will be generated
+└── Audio Transcriber.app/  # Application bundle - will be generated
 ```
 
 ## Technology Stack
@@ -49,61 +51,10 @@ The setup script will:
 4. Generate app icon
 5. Create app bundle
 
-### 3. Launch Application
+### 2. Launch Application
 ```bash
 open "Audio Transcriber.app"
 ```
-
-## Development Environment (Optionally)
-
-### Manual Setup
-If you prefer to set up manually:
-
-1. Create virtual environment:
-```bash
-cd /path/to/project
-uv venv
-source .venv/bin/activate
-```
-
-2. Install dependencies:
-```bash
-uv pip install -r requirements.txt
-```
-
-3. Download Whisper MLX model:
-```bash
-.venv/bin/python download_model.py
-```
-
-4. Generate icon:
-```bash
-.venv/bin/python create_icon.py
-```
-
-5. Create app bundle:
-```bash
-./create_app.sh
-```
-
-Note: Always use the virtual environment's Python interpreter (.venv/bin/python) to ensure consistent dependencies.
-
-### Project Configuration
-
-All paths in the application are relative to the project directory. Key files:
-
-- `create_icon.py`: Handles icon generation
-  - Input: assets/audio_transcriber_icon.png
-  - Output: assets/AppIcon.icns
-
-- `create_app.sh`: Creates app bundle
-  - Uses project directory for paths
-  - Generates launcher script with correct virtual environment path
-
-- `setup.sh`: Manages environment setup
-  - Installs dependencies
-  - Runs icon generation
-  - Creates app bundle
 
 ## Usage Guide
 
@@ -177,6 +128,23 @@ All paths in the application are relative to the project directory. Key files:
    source "$APP_DIR/.venv/bin/activate"
    exec "$APP_DIR/.venv/bin/python" "$APP_DIR/menubar_app.py"
    ```
+
+### Project Configuration
+
+All paths in the application are relative to the project directory. Key files:
+
+- `create_icon.py`: Handles icon generation
+  - Input: assets/audio_transcriber_icon.png
+  - Output: assets/AppIcon.icns
+
+- `create_app.sh`: Creates app bundle
+  - Uses project directory for paths
+  - Generates launcher script with correct virtual environment path
+
+- `setup.sh`: Manages environment setup
+  - Installs dependencies
+  - Runs icon generation
+  - Creates app bundle
 
 ## License
 MIT License - See LICENSE file for details
