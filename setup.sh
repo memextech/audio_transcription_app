@@ -13,13 +13,14 @@ if ! command -v uv &> /dev/null; then
     fi
 fi
 
-# Create virtual environment
+# Create virtual environment with Python 3.11
 echo "Creating virtual environment..."
 cd "$SCRIPT_DIR"
-uv venv
+uv venv --python 3.11
 
-# Activate virtual environment
+# Activate virtual environment and set Python path
 source .venv/bin/activate
+VENV_PYTHON="$SCRIPT_DIR/.venv/bin/python"
 
 # Install dependencies
 echo "Installing dependencies..."
@@ -27,7 +28,11 @@ uv pip install -r requirements.txt
 
 # Generate app icon
 echo "Generating app icon..."
-python3 create_icon.py
+"$VENV_PYTHON" create_icon.py
+
+# Download the model
+echo "Downloading Whisper MLX model..."
+"$VENV_PYTHON" download_model.py
 
 # Create app bundle
 echo "Creating app bundle..."
