@@ -1,6 +1,6 @@
 # Audio Transcription App
 
-A native macOS menu bar application for real-time audio transcription using Whisper MLX, optimized for Apple Silicon.
+This templates develops and spins up a native macOS menu bar application for real-time audio transcription using Whisper MLX, optimized for Apple Silicon.
 
 ## Features
 
@@ -10,6 +10,13 @@ A native macOS menu bar application for real-time audio transcription using Whis
 - 🔄 Transcription history
 - 🎯 Native macOS integration
 
+## Potential app functionality expansions to explore
+
+Here are some ideas of how to expand this template after you get it up and running:
+- Create a library of generated transcripts
+- Functionality to save transcripts as .txt files
+- LLM connection to generate transcript summaries
+
 ## Requirements
 
 - macOS 11.0 or later
@@ -18,6 +25,8 @@ A native macOS menu bar application for real-time audio transcription using Whis
 - Microphone permissions
 
 ## Quick Start
+
+Just ask Memex to run this app locally and it will take care of the rest! If you run into any errors, just point Memex to fix them.
 
 1. Clone the repository:
 ```bash
@@ -38,16 +47,16 @@ open "Audio Transcriber.app"
 
 ## Development
 
-See [running.md](running.md) for detailed development instructions.
+See Rules for AI (rendered from .memex/rules.md) for detailed development guidelines Memex will follow, including:
+- Complete setup instructions
+- Model-specific parameters
+- Error handling
+- Potential improvements
+- Development workflow
+
+You can ask Memex to update rules.md to reflect your project needs as you expand it, or set it as part of your Custom Instructions so that it does it automatically after important steps.
+
 
 ## License
 
-MIT License - See LICENSE file for details
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+MIT License
