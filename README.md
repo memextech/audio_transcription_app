@@ -28,6 +28,8 @@ Here are some ideas of how to expand this template after you get it up and runni
 
 Just ask Memex to run this app locally and it will take care of the rest! If you run into any errors, just point Memex to fix them.
 
+If you’d like to set up the environment and dependencies manually, follow these steps:
+
 1. Clone the repository:
 ```bash
 git clone https://github.com/memextech/audio_transcription_app.git
