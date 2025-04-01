@@ -10,7 +10,7 @@ The original macOS application used Apple Silicon-specific technologies (MLX and
 
 1. **GUI Framework**: 
    - Replaced macOS-specific `rumps` with cross-platform `PyQt5`
-   - Implemented both system tray and windowed interfaces
+   - Implemented a windowed interface with all functionality
 
 2. **Speech Recognition**:
    - Replaced Apple-specific `lightning-whisper-mlx` with standard `openai-whisper`
@@ -39,7 +39,7 @@ If you don't have Python installed:
 ```bash
 # Create and activate virtual environment
 python -m venv .venv
-.venv\Scripts\activate
+.venv\Scriptsctivate
 
 # Install dependencies
 pip install PyQt5 openai-whisper sounddevice wavio pyperclip soundfile scipy
@@ -47,14 +47,9 @@ pip install PyQt5 openai-whisper sounddevice wavio pyperclip soundfile scipy
 
 ### 3. Launch Application
 
-You can run either the system tray version or the windowed version:
-
 ```bash
-# System tray version
-python windows_whisper_app.py
-
-# Windowed version (recommended for better UI)
-python windows_whisper_app_fixed.py
+# Run the application
+python windows_app.py
 ```
 
 ## Usage Guide

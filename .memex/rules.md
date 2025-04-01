@@ -10,7 +10,7 @@ This project provides instant audio transcription using Whisper, with platform-s
 - Integrates with macOS menu bar using rumps
 
 ### Windows Version
-- Available as both system tray and windowed application
+- Available as a windowed application
 - Uses standard OpenAI Whisper for transcription
 - Built with PyQt5 for cross-platform GUI support
 
@@ -57,10 +57,10 @@ pip install PyQt5 openai-whisper sounddevice wavio pyperclip soundfile scipy
 You can run either the system tray version or the windowed version:
 ```bash
 # System tray version
-python windows_whisper_app.py
+python windows_app.py
 
 # Windowed version (recommended for better UI)
-python windows_whisper_app_fixed.py
+python windows_app.py
 ```
 
 ## Usage Guide
@@ -86,11 +86,6 @@ python windows_whisper_app_fixed.py
 
 ### Windows: Application Interface
 
-#### System Tray Version
-- Right-click the system tray icon to access menu options
-- Similar workflow to macOS version
-
-#### Windowed Version (Recommended)
 The application provides a user-friendly windowed interface with:
 
 1. **Recording Controls**
@@ -192,8 +187,8 @@ For further development of the app, here is an overview of the repo:
 ```
 audio_transcription_app/
 ├── menubar_app.py          # Main application logic (macOS)
-├── windows_whisper_app.py  # System tray application (Windows)
-├── windows_whisper_app_fixed.py # Windowed application (Windows)
+├── windows_app.py  # System tray application (Windows)
+├── windows_app.py # Windowed application (Windows)
 ├── create_icon.py          # Icon generation script (macOS)
 ├── create_app.sh           # App bundle creation script (macOS)
 ├── setup.sh                # Environment and app setup script (macOS)
@@ -228,11 +223,11 @@ All paths in the application are relative to the project directory. Key files:
 
 #### Windows Configuration
 
-- `windows_whisper_app.py`: System tray application
+- `windows_app.py`: System tray application
   - Uses PyQt5 for system tray integration
   - Similar workflow to macOS version
 
-- `windows_whisper_app_fixed.py`: Windowed application
+- `windows_app.py`: Windowed application
   - More user-friendly interface
   - Direct audio processing without FFmpeg
   - Model selection and other settings
