@@ -1,11 +1,24 @@
-# Audio Transcriber - Technical Overview & Setup Guide
+# Audio Transcriber - Cross-Platform Technical Overview & Setup Guide
 
-This project is a native macOS menu bar application that provides instant audio transcription using Whisper MLX, optimized for Apple Silicon.
+This project provides instant audio transcription using Whisper, with platform-specific implementations for macOS (using Whisper MLX) and Windows (using OpenAI Whisper).
 
+## Platform-Specific Implementations
+
+### macOS Version
+- Native menu bar application optimized for Apple Silicon
+- Uses Whisper MLX for fast transcription
+- Integrates with macOS menu bar using rumps
+
+### Windows Version
+- Available as a windowed application
+- Uses standard OpenAI Whisper for transcription
+- Built with PyQt5 for cross-platform GUI support
 
 ## Installation Steps
 
-### 1. Run Setup Script
+### macOS Installation
+
+#### 1. Run Setup Script
 ```bash
 chmod +x setup.sh
 ./setup.sh
@@ -18,20 +31,47 @@ The setup script will:
 4. Generate app icon
 5. Create app bundle
 
-### 2. Launch Application
+#### 2. Launch Application
 ```bash
 open "Audio Transcriber.app"
 ```
 
+### Windows Installation
+
+#### 1. Install Python
+If you don't have Python installed:
+1. Download Python from [python.org](https://www.python.org/downloads/)
+2. During installation, make sure to check "Add Python to PATH"
+
+#### 2. Setup Virtual Environment and Dependencies
+```bash
+# Create and activate virtual environment
+python -m venv .venv
+.venv\Scripts\activate
+
+# Install dependencies
+pip install PyQt5 openai-whisper sounddevice wavio pyperclip soundfile scipy
+```
+
+#### 3. Launch Application
+You can run either the system tray version or the windowed version:
+```bash
+# System tray version
+python windows_app.py
+
+# Windowed version (recommended for better UI)
+python windows_app.py
+```
+
 ## Usage Guide
 
-### Menu Bar Interface
-- 🎙️ Ready to record
-- ⏹️ Recording in progress
-- ⏳ Transcribing
-- ✨ Transcription complete
+### macOS: Menu Bar Interface
+- Ready to record
+- Recording in progress
+- Transcribing
+- Transcription complete
 
-### Features
+#### Features
 1. **Recording**
    - Click menu bar icon
    - Select "Start Recording"
@@ -44,9 +84,32 @@ open "Audio Transcriber.app"
    - Clipboard copy
    - History storage
 
+### Windows: Application Interface
+
+The application provides a user-friendly windowed interface with:
+
+1. **Recording Controls**
+   - Start/Stop recording buttons
+   - Recording timer display
+   - Status indicator
+
+2. **Model Selection**
+   - Choose between different Whisper models:
+     - tiny: Fastest, least accurate
+     - base: Good balance of speed and accuracy
+     - small: Better accuracy, slower
+     - medium: Best accuracy, slowest
+
+3. **Transcription History**
+   - View history of recent transcriptions
+   - Each transcription includes timestamp
+
+4. **Settings**
+   - Auto-copy to clipboard option
+
 ## Troubleshooting
 
-### Common Issues
+### macOS Common Issues
 
 1. **Installation Problems**
    - Verify Python 3.11+ is installed
@@ -96,26 +159,52 @@ open "Audio Transcriber.app"
    exec "$APP_DIR/.venv/bin/python" "$APP_DIR/menubar_app.py"
    ```
 
+### Windows Common Issues
+
+1. **Installation Problems**
+   - Verify Python 3.11+ is installed: `python --version`
+   - Ensure all dependencies are installed: `pip list`
+
+2. **Audio Recording Issues**
+   - Grant microphone permissions in Windows Settings
+   - Check audio input device in Windows Sound settings
+   - Try running with administrator privileges
+
+3. **Transcription Issues**
+   - For memory errors, try using a smaller model (tiny or base)
+   - Ensure speech is clear and microphone is working properly
+   - Check the log file for detailed error information
+
+4. **Audio Processing Issues**
+   - If you encounter FFmpeg-related errors, the app is designed to work without it
+   - The app uses direct audio processing with soundfile and scipy
+   - Check that audio format conversion is working properly
 
 ## Development
 
 For further development of the app, here is an overview of the repo:
 
 ```
-audio_transcription_app_setup/
-├── menubar_app.py          # Main application logic
-├── create_icon.py          # Icon generation script
-├── create_app.sh           # App bundle creation script
-├── setup.sh               # Environment and app setup script
-├── requirements.txt       # Python dependencies
-├── .memex/rules.md            # This guide
-├── assets/               # Application assets
+audio_transcription_app/
+├── menubar_app.py          # Main application logic (macOS)
+├── windows_app.py  # System tray application (Windows)
+├── windows_app.py # Windowed application (Windows)
+├── create_icon.py          # Icon generation script (macOS)
+├── create_app.sh           # App bundle creation script (macOS)
+├── setup.sh                # Environment and app setup script (macOS)
+├── setup_windows.py        # Setup script for Windows
+├── requirements.txt        # Python dependencies (macOS)
+├── .memex/rules.md         # This guide
+├── README_WINDOWS.md       # Windows-specific documentation
+├── assets/                 # Application assets
 │   ├── audio_transcriber_icon.png  # Source icon
-│   └── AppIcon.icns      # MacOS app icon - will be generated
-└── Audio Transcriber.app/  # Application bundle - will be generated
+│   └── AppIcon.icns        # MacOS app icon - will be generated
+└── Audio Transcriber.app/  # Application bundle - will be generated (macOS only)
 ```
 
 ### Project Configuration
+
+#### macOS Configuration
 
 All paths in the application are relative to the project directory. Key files:
 
@@ -132,18 +221,46 @@ All paths in the application are relative to the project directory. Key files:
   - Runs icon generation
   - Creates app bundle
 
+#### Windows Configuration
+
+- `windows_app.py`: System tray application
+  - Uses PyQt5 for system tray integration
+  - Similar workflow to macOS version
+
+- `windows_app.py`: Windowed application
+  - More user-friendly interface
+  - Direct audio processing without FFmpeg
+  - Model selection and other settings
+
+- `setup_windows.py`: Setup script for Windows
+  - Creates virtual environment
+  - Installs dependencies
+
 ## Technology Stack
 
-### Core Components
+### macOS Core Components
 - **Whisper MLX**: Apple's MLX-based Whisper implementation
 - **Python 3.11+**: Core runtime
 - **rumps**: macOS menu bar integration
 - **sounddevice + wavio**: Audio capture
 - **uv**: Python package management
 
-### System Requirements
+### macOS System Requirements
 - macOS 11.0 or later
 - Apple Silicon Mac (M1/M2/M3)
+- Microphone permissions
+
+### Windows Core Components
+- **OpenAI Whisper**: Standard Whisper implementation
+- **Python 3.11+**: Core runtime
+- **PyQt5**: GUI framework for system tray and windowed interface
+- **sounddevice + wavio**: Audio capture
+- **soundfile + scipy**: Audio processing without FFmpeg
+- **pyperclip**: Clipboard integration
+
+### Windows System Requirements
+- Windows 10 or later
+- Python 3.11 or later
 - Microphone permissions
 
 ## License
