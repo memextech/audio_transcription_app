@@ -5,7 +5,7 @@ import wavio
 import tempfile
 import os
 import time
-from lightning_whisper_mlx import LightningWhisperMLX
+import mlx_whisper
 import threading
 import queue
 import pyperclip
@@ -40,7 +40,8 @@ class AudioTranscriptionApp(rumps.App):
         )
         
         # Initialize Whisper model
-        self.whisper_model = LightningWhisperMLX(model="distil-medium.en", batch_size=12, quant=None)
+        # Using a valid model from Hugging Face
+        self.model_path = "mlx-community/whisper-medium-mlx"  # Hugging Face medium model
         
         # Recording state
         self.recording = False
@@ -197,7 +198,7 @@ class AudioTranscriptionApp(rumps.App):
                 self.status_item.title = "Transcribing..."
                 
                 # Transcribe the audio
-                result = self.whisper_model.transcribe(audio_path=temp_audio.name)
+                result = mlx_whisper.transcribe(temp_audio.name, path_or_hf_repo=self.model_path)
                 self.transcribed_text = result['text']
                 
                 # Add to history

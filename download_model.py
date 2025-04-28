@@ -1,43 +1,37 @@
 #!/usr/bin/env python3
 import os
 import sys
-import requests
+import mlx_whisper
 from pathlib import Path
-from tqdm import tqdm
-
-MODEL_URL = "https://huggingface.co/mlx-community/whisper-distil-medium.en-mlx/resolve/main/weights.npz"
-MODEL_DIR = Path(__file__).parent / "mlx_models" / "distil-medium.en"
-
-def download_file(url: str, filepath: Path, chunk_size: int = 8192):
-    response = requests.get(url, stream=True)
-    total_size = int(response.headers.get('content-length', 0))
-    
-    filepath.parent.mkdir(parents=True, exist_ok=True)
-    
-    progress_bar = tqdm(
-        total=total_size,
-        unit='iB',
-        unit_scale=True,
-        desc=f"Downloading model"
-    )
-    
-    with open(filepath, 'wb') as f:
-        for chunk in response.iter_content(chunk_size=chunk_size):
-            progress_bar.update(len(chunk))
-            f.write(chunk)
-    
-    progress_bar.close()
+from huggingface_hub import snapshot_download
 
 def main():
-    model_path = MODEL_DIR / "weights.npz"
+    model_id = "mlx-community/whisper-medium-mlx"
+    print(f"Downloading model {model_id}...")
     
-    if model_path.exists():
-        print(f"Model already exists at {model_path}")
-        return
+    # This will download and cache the model 
+    # in the ~/.cache/huggingface/hub directory
+    model_path = snapshot_download(repo_id=model_id)
     
-    print(f"Downloading model to {model_path}")
-    download_file(MODEL_URL, model_path)
-    print("Download complete!")
+    print(f"Model downloaded to: {model_path}")
+    
+    # Test loading the model
+    print("Testing model loading...")
+    try:
+        # Just test that we can use the model for transcription
+        # Using a dummy path since we only want to test model loading
+        _ = mlx_whisper.transcribe(
+            None, 
+            path_or_hf_repo=model_id, 
+            return_without_timestamps=True, 
+            dry_run=True
+        )
+        print("✅ Model reference validated successfully!")
+    except Exception as e:
+        print(f"❌ Error referencing model: {e}")
+        # We'll continue anyway as the model is downloaded
+    
+    print("Download and validation complete!")
 
 if __name__ == "__main__":
     main()

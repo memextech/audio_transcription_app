@@ -1,21 +1,22 @@
 # Audio Transcription App
 
-This templates develops and spins up a native macOS menu bar application for real-time audio transcription using Whisper MLX, optimized for Apple Silicon.
+A native macOS menu bar application for real-time audio transcription using MLX-Whisper, optimized for Apple Silicon.
 
 ## Features
 
 - 🎙️ One-click audio recording from menu bar
-- ⚡ Fast transcription using Whisper MLX
+- ⚡ Fast transcription using MLX-Whisper
 - 📋 Automatic clipboard copy
 - 🔄 Transcription history
 - 🎯 Native macOS integration
 
-## Potential app functionality expansions to explore
+## What's New
 
-Here are some ideas of how to expand this template after you get it up and running:
-- Create a library of generated transcripts
-- Functionality to save transcripts as .txt files
-- LLM connection to generate transcript summaries
+This version uses the official `mlx-whisper` package from Apple's ML Explore team instead of `lightning-whisper-mlx`, providing:
+- Better compatibility with the latest macOS versions
+- Access to Hugging Face's model repository
+- More stable performance on Apple Silicon
+- Simplified dependency management
 
 ## Requirements
 
@@ -23,41 +24,113 @@ Here are some ideas of how to expand this template after you get it up and runni
 - Apple Silicon Mac (M1/M2/M3)
 - Python 3.11+
 - Microphone permissions
+- Internet connection (for first-time model download)
 
-## Quick Start
+## Installation
 
-Just ask Memex to run this app locally and it will take care of the rest! If you run into any errors, just point Memex to fix them.
+### Quick Setup (Recommended)
+Run the setup script to automatically install dependencies, build the app, and copy it to your Applications folder:
 
-If you’d like to set up the environment and dependencies manually, follow these steps:
-
-1. Clone the repository:
-```bash
-git clone https://github.com/memextech/audio_transcription_app.git
-cd audio_transcription_app
-```
-
-2. Run setup script:
 ```bash
 chmod +x setup.sh
 ./setup.sh
 ```
 
-3. Launch the app:
-```bash
-open "Audio Transcriber.app"
-```
+### Manual Installation
+If you prefer to install manually:
+
+1. Create a Python virtual environment:
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   ```
+
+2. Install dependencies:
+   ```bash
+   pip install mlx mlx-whisper rumps sounddevice wavio pyperclip pillow tqdm
+   ```
+
+3. Generate the app icon:
+   ```bash
+   python create_icon.py
+   ```
+
+4. Download the model (optional - will download on first use):
+   ```bash
+   python download_model.py
+   ```
+
+5. Create the app bundle:
+   ```bash
+   bash create_app.sh
+   ```
+
+6. Copy to Applications (optional):
+   ```bash
+   cp -R "Audio Transcriber.app" /Applications/
+   ```
+
+## Usage
+
+### Starting the App
+Launch the app from:
+- Finder: `/Applications/Audio Transcriber.app` 
+- Spotlight: Search for "Audio Transcriber"
+- Terminal: `open "/Applications/Audio Transcriber.app"`
+
+The app will appear as a 🎙️ icon in your menu bar.
+
+### Recording and Transcribing
+1. Click on the 🎙️ icon in your menu bar
+2. Select "Start Recording" 
+3. Speak into your microphone
+4. Click on the menu again and select "Stop Recording"
+5. Wait for the transcription to complete (the icon will change to indicate progress)
+6. The transcribed text will appear in a window
+7. Click "Copy & Close" to copy the text to your clipboard
+
+### Additional Features
+- **Transcription History**: Access previous transcriptions from the "Recent Transcriptions" menu
+- **Auto-Copy**: Toggle automatic copying to clipboard in the Settings menu
+
+## Technical Details
+
+This application uses:
+- `mlx-whisper`: Apple Silicon optimized version of OpenAI's Whisper
+- `rumps`: for macOS menu bar integration
+- Hugging Face model: `mlx-community/whisper-medium-mlx`
+- The model is automatically downloaded on first use
+
+The app creates log files in the `logs` directory within the project folder for troubleshooting.
+
+## Troubleshooting
+
+If you encounter issues:
+- Check the logs in `logs/app.log`
+- Ensure your microphone permissions are enabled in System Preferences -> Privacy & Security -> Microphone
+- Try restarting the app
+- Verify that all dependencies are installed correctly
+
+### Common Issues
+1. **App Won't Launch**: Check that the app bundle is properly signed and has the correct permissions
+2. **No Menu Bar Icon**: Ensure the app is running (`ps aux | grep menubar_app.py`)
+3. **Transcription Errors**: Could indicate issues with the Whisper model - check logs for details
+
+## Uninstalling
+To uninstall:
+1. Remove the app from Applications folder:
+   ```bash
+   rm -rf "/Applications/Audio Transcriber.app"
+   ```
+2. Remove the project directory if desired
 
 ## Development
 
-See Rules for AI (rendered from `.memex/rules.md`) for detailed development guidelines Memex will follow, including:
+For detailed development guidelines, see the `.memex/rules.md` file, which includes:
 - Complete setup instructions
-- Model-specific parameters
-- Error handling
-- Potential improvements
+- Architecture overview
+- Troubleshooting guidance
 - Development workflow
-
-You can ask Memex to update rules.md to reflect your project needs as you expand it, or set it as part of your Custom Instructions so that it does it automatically after important steps.
-
 
 ## License
 

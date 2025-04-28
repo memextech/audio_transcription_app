@@ -1,6 +1,9 @@
-lightning-whisper-mlx
+mlx
+mlx-whisper
 rumps
 sounddevice
 wavio
 pillow
 pyperclip
+tqdm
+huggingface_hub

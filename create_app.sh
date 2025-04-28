@@ -94,7 +94,18 @@ log_msg "Activating virtual environment"
 source "\$APP_DIR/.venv/bin/activate"
 
 log_msg "Launching Python application"
-exec "\$APP_DIR/.venv/bin/python" "\$APP_DIR/menubar_app.py"
+
+# Set PATH to include Homebrew paths
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+
+# Set PYTHONPATH to ensure all modules can be found
+export PYTHONPATH="\$APP_DIR:\$PYTHONPATH"
+
+# Create log directory
+mkdir -p "\$APP_DIR/logs"
+
+# Run the app
+exec "\$APP_DIR/.venv/bin/python" "\$APP_DIR/menubar_app.py" >> "\$APP_DIR/logs/app.log" 2>&1
 EOL
 
 # Make launcher executable

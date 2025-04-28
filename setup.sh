@@ -22,9 +22,13 @@ uv venv --python 3.11
 source .venv/bin/activate
 VENV_PYTHON="$SCRIPT_DIR/.venv/bin/python"
 
-# Install dependencies
-echo "Installing dependencies..."
-uv pip install -r requirements.txt
+# Install core dependencies
+echo "Installing core dependencies..."
+uv pip install rumps sounddevice wavio pyperclip pillow tqdm huggingface_hub
+
+# Install MLX dependencies
+echo "Installing MLX dependencies..."
+uv pip install mlx mlx-whisper
 
 # Generate app icon
 echo "Generating app icon..."
@@ -38,5 +42,14 @@ echo "Downloading Whisper MLX model..."
 echo "Creating app bundle..."
 bash create_app.sh
 
-echo "Setup complete! You can now run the app using:"
-echo "open '$SCRIPT_DIR/Audio Transcriber.app'"
+# Copy to Applications folder
+echo "Copying to Applications folder..."
+if [ -d "/Applications/Audio Transcriber.app" ]; then
+    echo "Removing existing application from /Applications..."
+    rm -rf "/Applications/Audio Transcriber.app"
+fi
+cp -R "$SCRIPT_DIR/Audio Transcriber.app" /Applications/
+
+echo "Setup complete! You can now run the app from:"
+echo "1. /Applications/Audio Transcriber.app"
+echo "2. $SCRIPT_DIR/Audio Transcriber.app"
